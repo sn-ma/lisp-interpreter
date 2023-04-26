@@ -1,10 +1,10 @@
 package snma.lisp_interpreter.command_line_runner
 
-	import org.slf4j.LoggerFactory
+import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-	import snma.lisp_interpreter.model.Model
+import snma.lisp_interpreter.model.Model
 
 @SpringBootApplication
 class LispInterpreterApplication(
