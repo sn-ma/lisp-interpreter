@@ -4,11 +4,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import snma.lisp_interpreter.model.Model
 
 @SpringBootApplication
 class LispInterpreterApplication(
-	private val model: Model,
 ) : CommandLineRunner {
 	private val logger = LoggerFactory.getLogger(LispInterpreterApplication::class.java)
 
@@ -17,7 +15,6 @@ class LispInterpreterApplication(
 		for (i in args.indices) {
 			logger.info("args[{}]: {}", i, args[i])
 		}
-		logger.info(model.foo().toString())
 	}
 }
 
