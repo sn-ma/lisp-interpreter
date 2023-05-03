@@ -1,16 +1,16 @@
-package snma.lisp_interpreter.model
+package snma.lisp_interpreter.model.lexer
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
-private data class TestCase(
+private data class LexerTestCase(
     val string: String,
     val tokens: List<Token>,
 )
 
-class LexerTest : FunSpec ({
+class LexerTest : FunSpec({
     listOf(
-        TestCase(
+        LexerTestCase(
             string = "(+ 1 20)",
             tokens = listOf(
                 Token(TokenType.PARENTHESES_OPEN, "("),
@@ -20,7 +20,7 @@ class LexerTest : FunSpec ({
                 Token(TokenType.PARENTHESES_CLOSE, ")"),
             ),
         ),
-        TestCase(
+        LexerTestCase(
             string = "(+  1  20)",
             tokens = listOf(
                 Token(TokenType.PARENTHESES_OPEN, "("),
@@ -30,7 +30,7 @@ class LexerTest : FunSpec ({
                 Token(TokenType.PARENTHESES_CLOSE, ")"),
             ),
         ),
-        TestCase(
+        LexerTestCase(
             string = "(+ 10 (* 20 30))",
             tokens = listOf(
                 Token(TokenType.PARENTHESES_OPEN, "("),

@@ -1,4 +1,4 @@
-package snma.lisp_interpreter.model
+package snma.lisp_interpreter.model.lexer
 
 enum class TokenType {
     WHITESPACE,

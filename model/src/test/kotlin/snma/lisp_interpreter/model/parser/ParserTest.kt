@@ -1,7 +1,9 @@
-package snma.lisp_interpreter.model
+package snma.lisp_interpreter.model.parser
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import snma.lisp_interpreter.model.lexer.Token
+import snma.lisp_interpreter.model.lexer.TokenType
 
 private data class ParserTestCase(
     val name: String,
@@ -41,7 +43,8 @@ class ParserTest: FunSpec({
             ),
             treeExpected = Branch(listOf(
                 Leaf("+"),
-                Leaf("10"),Branch(listOf(
+                Leaf("10"),
+                Branch(listOf(
                     Leaf("*"),
                     Leaf("20"),
                     Leaf("30"),

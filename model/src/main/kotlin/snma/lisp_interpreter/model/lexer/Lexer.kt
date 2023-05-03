@@ -1,4 +1,4 @@
-package snma.lisp_interpreter.model
+package snma.lisp_interpreter.model.lexer
 
 class Lexer {
     fun parse(str: String): Sequence<Token> = sequence {

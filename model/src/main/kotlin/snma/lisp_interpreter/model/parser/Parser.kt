@@ -1,4 +1,7 @@
-package snma.lisp_interpreter.model
+package snma.lisp_interpreter.model.parser
+
+import snma.lisp_interpreter.model.lexer.Token
+import snma.lisp_interpreter.model.lexer.TokenType
 
 class Parser {
     private class ParseCallResult(
