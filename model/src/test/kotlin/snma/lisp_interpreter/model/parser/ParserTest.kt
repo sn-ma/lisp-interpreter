@@ -14,6 +14,13 @@ private data class ParserTestCase(
 class ParserTest: FunSpec({
     sequenceOf(
         ParserTestCase(
+            name = "42",
+            tokens = listOf(
+                Number(42.toBigDecimal()),
+            ),
+            sExpressionExpected = LispNumber(42.toBigDecimal())
+        ),
+        ParserTestCase(
             name = "(+ 1 2)",
             tokens = listOf(
                 ParenthesesOpen,
@@ -34,11 +41,74 @@ class ParserTest: FunSpec({
             ),
         ),
         ParserTestCase(
-            name = "42",
+            name = "(+ 1 2 3)",
             tokens = listOf(
-                Number(42.toBigDecimal()),
+                ParenthesesOpen,
+                Identifier("+"),
+                Number(1.toBigDecimal()),
+                Number(2.toBigDecimal()),
+                Number(3.toBigDecimal()),
+                ParenthesesClose,
             ),
-            sExpressionExpected = LispNumber(42.toBigDecimal())
+            sExpressionExpected = LispPair(
+                LispAtom("+"),
+                LispPair(
+                    LispNumber(1.toBigDecimal()),
+                    LispPair(
+                        LispNumber(2.toBigDecimal()),
+                        LispPair(
+                            LispNumber(3.toBigDecimal()),
+                            LispNull,
+                        )
+                    )
+                )
+            ),
+        ),
+        ParserTestCase(
+            name = "(+ (* 1 2) (/ 3 4))",
+            tokens = listOf(
+                ParenthesesOpen,
+                Identifier("+"),
+                ParenthesesOpen,
+                Identifier("*"),
+                Number(1.toBigDecimal()),
+                Number(2.toBigDecimal()),
+                ParenthesesClose,
+                ParenthesesOpen,
+                Identifier("/"),
+                Number(3.toBigDecimal()),
+                Number(4.toBigDecimal()),
+                ParenthesesClose,
+                ParenthesesClose,
+            ),
+            sExpressionExpected = LispPair(
+                LispAtom("+"),
+                LispPair(
+                    LispPair(
+                        LispAtom("*"),
+                        LispPair(
+                            LispNumber(1.toBigDecimal()),
+                            LispPair(
+                                LispNumber(2.toBigDecimal()),
+                                LispNull,
+                            ),
+                        ),
+                    ),
+                    LispPair(
+                        LispPair(
+                            LispAtom("/"),
+                            LispPair(
+                                LispNumber(3.toBigDecimal()),
+                                LispPair(
+                                    LispNumber(4.toBigDecimal()),
+                                    LispNull,
+                                ),
+                            ),
+                        ),
+                        LispNull,
+                    ),
+                )
+            ),
         ),
     ).forEach {
         test(it.name) {
