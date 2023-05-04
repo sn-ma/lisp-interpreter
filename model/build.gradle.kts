@@ -7,6 +7,7 @@ plugins {
 
 dependencies {
     implementation(libs.kotlin.reflect)
+    implementation(libs.persistent.collections)
     testImplementation(libs.kotest)
 }
 
