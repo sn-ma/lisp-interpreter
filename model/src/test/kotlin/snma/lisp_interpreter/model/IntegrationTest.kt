@@ -45,6 +45,10 @@ class IntegrationTest : FunSpec({
             expected = LispNumber(6.toBigDecimal()),
         ),
         IntegrationTestCase(
+            program = "(+ 1 (* 2 3))",
+            expected = LispNumber(7.toBigDecimal()),
+        ),
+        IntegrationTestCase(
             program = "(let ((a 1)) (+ a 2))",
             expected = LispNumber(3.toBigDecimal()),
         ),
