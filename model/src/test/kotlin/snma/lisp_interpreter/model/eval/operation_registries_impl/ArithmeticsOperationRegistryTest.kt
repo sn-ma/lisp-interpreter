@@ -17,7 +17,23 @@ class ArithmeticsOperationRegistryTest : FunSpec({
     sequenceOf(
         ArithmeticsIntegrationTestCase(
             program = "(+ 1 2)",
-            expected = 3.toBigDecimal()
+            expected = 3.toBigDecimal(),
+        ),
+        ArithmeticsIntegrationTestCase(
+            program = "(+)",
+            expected = BigDecimal.ZERO,
+        ),
+        ArithmeticsIntegrationTestCase(
+            program = "(+ 1)",
+            expected = BigDecimal.ONE,
+        ),
+        ArithmeticsIntegrationTestCase(
+            program = "(+ 1 2 3)",
+            expected = 6.toBigDecimal(),
+        ),
+        ArithmeticsIntegrationTestCase(
+            program = "(+ 1 (+ 2 3))",
+            expected = 6.toBigDecimal(),
         ),
     ).forEach {
         test(it.program) {
