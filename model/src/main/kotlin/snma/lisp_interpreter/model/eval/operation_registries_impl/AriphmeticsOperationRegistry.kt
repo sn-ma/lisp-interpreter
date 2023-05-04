@@ -11,7 +11,7 @@ private val SumOperation = object : Operation {
         LispNull -> LispNumber(BigDecimal.ZERO)
         is LispNumber -> sExpression
         is LispPair -> {
-            val left = context.interpreter.eval(sExpression.left)
+            val left = context.interpreter.eval(sExpression.left, context)
             check (left is LispNumber) { "Number expected, got $left" }
             val right = perform(context, sExpression.right)
             LispNumber(left.value + right.value)
