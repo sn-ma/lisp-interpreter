@@ -12,5 +12,7 @@ class ArithmeticsContextMutator : ContextMutator {
         contextMap["*"] = lispReduceFunction(LispNumber(BigDecimal.ONE)) { a, b ->
             LispNumber(a.value * b.value)
         }
+        contextMap["-"] = SUBTRACT_FUNCTION
+        contextMap["/"] = DIVIDE_FUNCTION
     }
 }
