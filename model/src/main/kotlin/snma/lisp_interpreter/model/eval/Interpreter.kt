@@ -5,29 +5,31 @@ import snma.lisp_interpreter.model.*
 class Interpreter (
     private val operationRegistry: OperationRegistry,
 ) {
-    fun eval(sExpression: SExpression, interpretationContext: InterpretationContext = InterpretationContext(this)): SExpression =
+    fun eval(sExpression: SExpression, interpretationContext: InterpretationContext): SExpression =
         when (sExpression) {
             is LispPair -> {
-                val functionIdentifier = eval(sExpression.left)
-                check(functionIdentifier is LispAtom)
-                val operation = operationRegistry[functionIdentifier.name]
-                if (operation != null) {
-                    operation.perform(interpretationContext, sExpression.right)
-                } else {
-                    val function = interpretationContext.variables[functionIdentifier.name]
-                    check (function != null) {
-                        "Can't find either operation or function with name ${functionIdentifier.name}"
-                    }
+                val functionOrOperationIdentifier = sExpression.left
+                check (functionOrOperationIdentifier is LispAtom) {
+                    "Function or operation name expected, but got $functionOrOperationIdentifier"
+                }
+                if (functionOrOperationIdentifier.name in interpretationContext.variables) {
+                    val function = interpretationContext.variables[functionOrOperationIdentifier.name]
                     check (function is LispFunction) {
-                        "${functionIdentifier.name} is not a function"
+                        "Function name expected, but got $function"
                     }
                     function.eval(evalList(sExpression.right, interpretationContext), interpretationContext)
+                } else {
+                    val operation = operationRegistry[functionOrOperationIdentifier.name]
+                        ?: error {
+                            "Can't find either operation or function with name ${functionOrOperationIdentifier.name}"
+                        }
+                    operation.perform(interpretationContext, sExpression.right)
                 }
             }
 
             is LispAtom -> {
                 interpretationContext.variables[sExpression.name]
-                    ?: sExpression
+                    ?: error("Atom ${sExpression.name} not found in the context")
             }
 
             else -> {

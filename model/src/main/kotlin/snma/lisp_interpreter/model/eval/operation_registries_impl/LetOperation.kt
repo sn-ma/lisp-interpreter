@@ -30,7 +30,7 @@ val letOperation = object : Operation {
             val tail = someVariableAndValue.right
             check (tail is LispPair) { "Value for variable should be listed after it, instead get $tail" }
             check (tail.right === LispNull) { "Got more than one value for a ${variable.name}" }
-            val value = context.interpreter.eval(tail.left)
+            val value = context.eval(tail.left)
             val newContext = context.mutate {
                 it[variable.name] = value
             }
