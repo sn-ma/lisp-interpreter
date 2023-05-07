@@ -1,5 +1,6 @@
 package snma.lisp_interpreter.model.parser
 
+import snma.lisp_interpreter.model.*
 import snma.lisp_interpreter.model.lexer.*
 import snma.lisp_interpreter.model.lexer.Number
 

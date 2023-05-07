@@ -1,8 +1,9 @@
-package snma.lisp_interpreter.model.parser
+package snma.lisp_interpreter.model
 
+import snma.lisp_interpreter.model.eval.InterpretationContext
 import java.math.BigDecimal
 
-interface SExpression
+sealed interface SExpression
 
 object LispNull : SExpression
 
@@ -22,3 +23,10 @@ data class LispPair (
     val left: SExpression,
     val right: SExpression,
 ): SExpression
+
+interface LispFunction : SExpression {
+    fun eval(
+        args: SExpression,
+        context: InterpretationContext
+    ): SExpression
+}

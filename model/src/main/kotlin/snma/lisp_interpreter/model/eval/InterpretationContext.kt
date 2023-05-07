@@ -3,7 +3,7 @@ package snma.lisp_interpreter.model.eval
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.mutate
 import kotlinx.collections.immutable.persistentHashMapOf
-import snma.lisp_interpreter.model.parser.SExpression
+import snma.lisp_interpreter.model.SExpression
 
 class InterpretationContext (
     val interpreter: Interpreter,
@@ -13,4 +13,6 @@ class InterpretationContext (
         interpreter = interpreter,
         variables = variables.mutate(mutator)
     )
+
+    fun eval(sExpression: SExpression) = interpreter.eval(sExpression, this)
 }
