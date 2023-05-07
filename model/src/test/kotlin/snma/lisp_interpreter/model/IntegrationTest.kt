@@ -60,6 +60,10 @@ class IntegrationTest : FunSpec({
             program = "(let ((a 10)) (+ a (* a a)))",
             expected = LispNumber(110.toBigDecimal()),
         ),
+        IntegrationTestCase(
+            program = "(let ((sum2 (lambda (a b) (+ a b)))) (sum2 1 2))",
+            expected = LispNumber(3.toBigDecimal()),
+        ),
     ).forEach {
         test("${it.program} => ${it.expected}") {
             val tokens = Lexer().parse(it.program).toList()
